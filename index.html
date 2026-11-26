@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f2f2ee">
+  <meta name="description" content="Дуэль палитр — мини-игра на память, глазомер и чувство цвета.">
+  <link rel="icon" type="image/svg+xml" href="avatar.svg">
+  <title>Color Clash</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <svg class="svg-library" aria-hidden="true">
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18M8 15h.01M12 15h.01M16 15h.01M8 18h.01M12 18h.01"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9a2.5 2.5 0 1 1 3.4 2.3c-.7.3-1 1-1 1.7M12 17h.01"/></symbol>
+    <symbol id="i-restart" viewBox="0 0 24 24"><path d="M20 7v5h-5M19 12a7 7 0 1 0-1.3 4"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"/></symbol>
+    <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="m3 3 18 18M10.6 10.6a2 2 0 0 0 2.8 2.8M9.9 5.1A10.8 10.8 0 0 1 12 5c5.5 0 9 7 9 7a17 17 0 0 1-2.1 3M6.6 6.6C4.1 8.2 3 12 3 12s3.5 7 9 7a9.7 9.7 0 0 0 4.3-1"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></symbol>
+    <symbol id="i-volume-off" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="m16 9 5 6m0-6-5 6"/></symbol>
+  </svg>
+
+  <div class="page-shell">
+    <header class="topbar">
+      <button class="brand" id="brandButton" aria-label="Color Clash — start a Classic game">
+        <span class="brand-mark" aria-hidden="true"><img src="avatar.svg" alt=""></span>
+        <span>COLOR CLASH</span>
+      </button>
+      <div class="topbar-actions">
+        <label class="language-picker"><span class="sr-only" id="languageLabel">Язык</span><select id="languageSelect" aria-labelledby="languageLabel"><option value="ru">RU</option><option value="de">DE</option><option value="fr">FR</option><option value="en">EN</option><option value="es">ES</option><option value="pt">PT</option><option value="ar">AR</option><option value="zh">中文</option><option value="hi">हि</option><option value="bn">বাং</option></select></label>
+        <button class="icon-button" id="soundToggle" type="button" aria-label="Звук выключен" aria-pressed="false" title="Звук выключен"><svg><use href="#i-volume-off"/></svg></button>
+        <div class="top-record"><span id="topRecordLabel">Личный рекорд</span><strong id="topBest">—</strong></div>
+        <button class="icon-button labeled" id="historyButton" type="button">
+          <svg><use href="#i-history"/></svg><span id="historyButtonLabel">История</span>
+        </button>
+        <button class="icon-button" id="helpButton" type="button" aria-label="Как играть" title="Как играть">
+          <svg><use href="#i-help"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="pageTitle">
+        <div>
+          <p class="eyebrow"><span></span><span id="eyebrowText">Тренировка цветового восприятия</span></p>
+          <h1 id="pageTitle"><span id="titleLine1">Увидеть. Запомнить.</span><br><span id="titleLine2">Повторить.</span></h1>
+        </div>
+        <div class="intro-side">
+          <p id="formatDescription">Три секунды на запоминание.<br>Один цвет. Никаких подсказок.</p>
+          <label class="difficulty-label" for="difficulty">
+            <span id="formatLabel">Формат цели</span>
+            <span class="select-wrap">
+              <select id="difficulty">
+                <option value="solid">Один цвет</option>
+                <option value="gradient">Градиент · сложно</option>
+              </select>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <nav class="mode-switch" id="modeSwitch" aria-label="Режим игры">
+        <button class="mode-button active" data-mode="classic" type="button" aria-pressed="true">
+          <span class="mode-icon"><svg><use href="#i-layers"/></svg></span>
+          <span><strong id="classicModeLabel">Classic</strong><small id="classicModeMeta">5 раундов · средний балл</small></span>
+          <span class="mode-number">01</span>
+        </button>
+        <button class="mode-button" data-mode="daily" type="button" aria-pressed="false">
+          <span class="mode-icon"><svg><use href="#i-calendar"/></svg></span>
+          <span><strong id="dailyModeLabel">Color of the Day</strong><small id="dailyModeSubtitle">Один цвет для всех</small></span>
+          <span class="mode-number">02</span>
+        </button>
+        <button class="mode-button" data-mode="timed" type="button" aria-pressed="false">
+          <span class="mode-icon"><svg><use href="#i-clock"/></svg></span>
+          <span><strong id="timedModeLabel">Time Attack</strong><small id="timedModeMeta">60 секунд · максимум цветов</small></span>
+          <span class="mode-number">03</span>
+        </button>
+        <button class="mode-button" data-mode="practice" type="button" aria-pressed="false">
+          <span class="mode-icon"><svg><use href="#i-help"/></svg></span>
+          <span><strong id="practiceModeLabel">Practice</strong><small id="practiceModeMeta">Без ограничений · в своём темпе</small></span>
+          <span class="mode-number">04</span>
+        </button>
+      </nav>
+
+      <div class="workspace">
+        <section class="stage-card" aria-label="Игровое поле">
+          <div class="stage-meta">
+            <div class="round-label"><span class="live-dot"></span><span id="roundLabel">РАУНД 01 / 05</span></div>
+            <div class="stage-actions">
+              <span class="time-pill" id="timePill" hidden><svg><use href="#i-clock"/></svg><span id="sessionClock">01:00</span></span>
+              <span id="phaseLabel">ЗАПОМНИТЕ</span>
+              <button class="icon-button small" id="restartButton" type="button" aria-label="Начать режим заново" title="Начать заново"><svg><use href="#i-restart"/></svg></button>
+            </div>
+          </div>
+
+          <div class="color-arena is-memorizing" id="colorArena">
+            <div class="color-swatch target-swatch" id="targetSwatch">
+              <div class="memorize-content">
+                <span class="swatch-kicker" id="idleTarget">ЦЕЛЕВОЙ ОТТЕНОК</span>
+                <strong id="memoryCountdown">3</strong>
+                <span class="memorize-caption">Держите цвет в памяти</span>
+              </div>
+              <div class="memory-track"><span id="memoryProgress"></span></div>
+            </div>
+            <div class="color-swatch player-swatch" id="playerSwatch"></div>
+          </div>
+
+          <div class="stage-caption">
+            <span id="stageHint"><span class="caption-dot"></span> Смотрите внимательно — цвет скоро исчезнет</span>
+            <span class="delta-note">CIE LAB · ΔE 2000</span>
+          </div>
+        </section>
+
+        <aside class="control-card" aria-label="Панель смешивания цвета">
+          <div class="lobby-view" id="lobbyView">
+            <p class="mini-eyebrow" id="lobbyEyebrow">НОВАЯ ДУЭЛЬ</p>
+            <div class="lobby-mark" aria-hidden="true"><i></i><i></i></div>
+            <h2 id="lobbyTitle">Выберите режим</h2>
+            <p id="lobbyDescription">Пять цветов, три секунды на каждый. Проверьте свою цветовую память.</p>
+            <button class="primary-button" id="startMatchButton" type="button"><span>Начать матч</span><svg><use href="#i-arrow"/></svg></button>
+          </div>
+          <div id="mixView">
+            <div class="control-heading">
+              <div><p class="mini-eyebrow" id="paletteEyebrow">ВАША ПАЛИТРА</p><h2 id="mixHeading">Смешайте оттенок</h2></div>
+              <output class="hex-preview" id="currentHex">#808080</output>
+            </div>
+
+            <div class="stop-switch" id="stopSwitch" hidden>
+              <button type="button" class="active" data-stop="0" aria-pressed="true"><span></span><span id="stopALabel">Цвет A</span></button>
+              <button type="button" data-stop="1" aria-pressed="false"><span></span><span id="stopBLabel">Цвет B</span></button>
+            </div>
+
+            <div class="format-switch" id="formatSwitch" role="group" aria-label="Цветовая модель">
+              <button type="button" class="active" data-format="hsl" aria-pressed="true">HSL</button>
+              <button type="button" data-format="rgb" aria-pressed="false">RGB</button>
+            </div>
+
+            <fieldset id="sliderFieldset" disabled>
+              <div class="slider-row">
+                <div class="slider-label"><label for="channel0" id="channelLabel0">Тон · H</label><output id="channelValue0" for="channel0">0°</output></div>
+                <input id="channel0" data-channel="0" type="range" min="0" max="360" step="0.1" value="0" aria-label="Тон">
+              </div>
+              <div class="slider-row">
+                <div class="slider-label"><label for="channel1" id="channelLabel1">Насыщенность · S</label><output id="channelValue1" for="channel1">0%</output></div>
+                <input id="channel1" data-channel="1" type="range" min="0" max="100" step="0.1" value="0" aria-label="Насыщенность">
+              </div>
+              <div class="slider-row">
+                <div class="slider-label"><label for="channel2" id="channelLabel2">Светлота · L</label><output id="channelValue2" for="channel2">50%</output></div>
+                <input id="channel2" data-channel="2" type="range" min="0" max="100" step="0.1" value="50" aria-label="Светлота">
+              </div>
+            </fieldset>
+
+            <div class="control-bottom">
+              <button class="text-button" id="resetColorButton" type="button" disabled>Сбросить цвет</button>
+              <span id="speedTip">Точность важнее скорости</span>
+            </div>
+            <button class="primary-button" id="checkButton" type="button" disabled>
+              <span id="checkButtonText">Запомните цвет…</span><svg><use href="#i-arrow"/></svg>
+            </button>
+          </div>
+
+          <div class="result-view" id="resultView" hidden>
+            <p class="mini-eyebrow">РЕЗУЛЬТАТ РАУНДА</p>
+            <div class="accuracy-wrap"><strong id="accuracyValue">0</strong><span>%</span></div>
+            <h2 id="resultTitle">Точность совпадения</h2>
+            <p class="result-message" id="resultMessage"></p>
+            <div class="delta-result"><span><span id="deltaLabel">Разница цвета</span> <b>ΔE</b></span><strong id="deltaValue">0.00</strong></div>
+            <div class="result-codes" id="resultCodes"></div>
+            <button class="primary-button" id="nextButton" type="button"><span id="nextButtonText">Следующий раунд</span><svg><use href="#i-arrow"/></svg></button>
+            <button class="secondary-button" id="endPracticeButton" type="button" hidden><span id="endPracticeLabel">Завершить тренировку</span></button>
+            <button class="secondary-button" id="copyButton" type="button" hidden><svg><use href="#i-copy"/></svg>Скопировать результат</button>
+          </div>
+
+          <div class="finished-view" id="finishedView" hidden>
+            <p class="mini-eyebrow" id="finishedEyebrow">СЕРИЯ ЗАВЕРШЕНА</p>
+            <div class="finished-mark" aria-hidden="true"><svg><use href="#i-check"/></svg></div>
+            <h2 id="finishedTitle">Отличная работа</h2>
+            <p id="finishedMessage">Все раунды завершены.</p>
+            <button class="primary-button" id="finishedRestartButton" type="button"><span id="finishedButtonText">Новая серия</span><svg><use href="#i-restart"/></svg></button>
+          </div>
+        </aside>
+      </div>
+
+      <section class="stats-grid" aria-label="Ваши достижения">
+        <article><span class="stat-index" id="bestStatLabel">01 / РЕКОРД</span><div><strong id="bestScore">—</strong><span id="bestAccuracyLabel">лучшая точность</span></div></article>
+        <article><span class="stat-index" id="winStreakLabel">02 / СЕРИЯ</span><div><strong id="streakScore">0</strong><span id="winStreakDescription">попаданий от 90% подряд</span></div><span class="best-streak"><span id="maxLabel">макс.</span> <b id="bestStreak">0</b></span></article>
+        <article><span class="stat-index" id="dailyStreakLabel">03 / ДНИ ПОДРЯД</span><div><strong id="dailyStreakScore">0</strong><span id="dailyStreakDescription">дней подряд</span></div></article>
+        <article><span class="stat-index" id="experienceLabel">04 / ОПЫТ</span><div><strong id="attemptCount">0</strong><span id="colorsRecreatedLabel">цветов воссоздано</span></div></article>
+      </section>
+    </main>
+
+    <footer><span id="footerDesign">На пересечении дизайна и интуиции.</span><span><span id="footerLocal">Прогресс хранится только на этом устройстве</span> <i></i></span></footer>
+  </div>
+
+  <dialog id="helpDialog" class="modal help-modal">
+    <button class="icon-button modal-close" data-close="helpDialog" aria-label="Закрыть"><svg><use href="#i-close"/></svg></button>
+    <p class="mini-eyebrow" id="helpEyebrow">КРАТКИЙ ИНСТРУКТАЖ</p>
+    <h2 id="helpTitle">Доверьтесь памяти.<br>И ползункам.</h2>
+    <ol class="help-steps">
+      <li><span>01</span><div><strong id="helpRemember">Запомните</strong><p id="helpRememberText">У вас есть 3 секунды, чтобы увидеть эталонный цвет. В сложном формате — оба края градиента.</p></div></li>
+      <li><span>02</span><div><strong id="helpRecreate">Повторите</strong><p id="helpRecreateText">Смешивайте оттенок в HSL или RGB. Переключение моделей не меняет выбранный цвет.</p></div></li>
+      <li><span>03</span><div><strong id="helpCompare">Сравните</strong><p id="helpCompareText">Точность рассчитывается по перцептивной разнице CIEDE2000: чем меньше ΔE, тем ближе цвет.</p></div></li>
+    </ol>
+    <p class="help-note" id="helpNote">Результат от 90% считается попаданием и продолжает вашу серию. Для градиента оцениваются оба оттенка.</p>
+    <button class="primary-button" data-close="helpDialog"><span id="helpGotIt">Всё понятно</span><svg><use href="#i-check"/></svg></button>
+  </dialog>
+
+  <dialog id="historyDialog" class="modal history-modal">
+    <div class="modal-header"><div><p class="mini-eyebrow" id="historyEyebrow">ВАШ АРХИВ</p><h2 id="historyTitle">История попыток</h2></div><button class="icon-button modal-close" data-close="historyDialog" aria-label="Закрыть"><svg><use href="#i-close"/></svg></button></div>
+    <div id="historyList" class="history-list"></div>
+    <div class="history-footer"><span id="historyLastLabel">Последние 80 попыток</span><button class="text-button" id="clearHistoryButton">Очистить историю</button></div>
+  </dialog>
+
+  <dialog id="summaryDialog" class="modal summary-modal">
+    <button class="icon-button modal-close" data-close="summaryDialog" aria-label="Закрыть"><svg><use href="#i-close"/></svg></button>
+    <p class="mini-eyebrow" id="summaryEyebrow">СЕРИЯ ЗАВЕРШЕНА</p>
+    <div class="summary-value"><strong id="summaryValue">0</strong><span id="summaryUnit">%</span></div>
+    <h2 id="summaryTitle">Средняя точность</h2>
+    <p id="summaryMessage"></p>
+    <div class="summary-details" id="summaryDetails"></div>
+    <button class="primary-button" id="playAgainButton">Сыграть ещё раз<svg><use href="#i-restart"/></svg></button>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title">
+  <title id="title">Color Clash — знак пересечения цветов</title>
+  <rect width="256" height="256" rx="58" fill="#f2f2ee"/>
+  <g style="mix-blend-mode:multiply">
+    <rect x="38" y="40" width="126" height="126" rx="38" fill="#f27b64" transform="rotate(-12 101 103)"/>
+    <rect x="91" y="88" width="126" height="126" rx="38" fill="#7bbcc3" transform="rotate(12 154 151)"/>
+  </g>
+  <circle cx="128" cy="128" r="9" fill="#f2f2ee" opacity=".9"/>
+</svg>
